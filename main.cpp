@@ -1,20 +1,20 @@
 #include <iostream>
 #include <cstdlib>
 #include <stdio.h>
-#ifdef LINUX
+#ifdef __linux__
 #include <unistd.h>
 #include <ncurses.h>
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
 #endif
-#ifdef WINDOWS
+#ifdef _WIN32
 #include <conio.h>
 #endif
 
 using namespace std;
 
-#ifdef LINUX 
+#ifdef __linux__ 
 int kbhit(void)
 {
   struct termios oldt, newt;
@@ -105,10 +105,10 @@ void Draw(){
 }
 
 void Input(){
-    #ifdef LINUX 
+    #ifdef __linux__ 
     if(kbhit()){ 
     #endif
-    #ifdef WINDOWS
+    #ifdef _WIN32
     if(_kbhit()){
     #endif
         switch(getchar()){
@@ -128,10 +128,10 @@ void Input(){
                 gameOver = true;
                 break;
         }
-    #ifdef LINUX
+    #ifdef __linux__
     }
     #endif
-    #ifdef WINDOWS
+    #ifdef _WIN32
     }
     #endif
 }
@@ -197,7 +197,7 @@ int main(){
         Draw();
         Input();
         Logic();
-        #ifdef LINUX
+        #ifdef __linux__
         usleep(100000);
         #endif
     }
